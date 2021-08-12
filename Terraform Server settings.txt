@@ -1,6 +1,8 @@
 
 Server IP:184.73.49.35
 
+http://184.73.49.35
+
 Server Configurations for mounting the drive and installing apache2
 
 root@ip-10-0-1-50:~# timedatectl set-timezone Asia/Kolkata
