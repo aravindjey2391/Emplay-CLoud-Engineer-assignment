@@ -1,0 +1,43 @@
+
+Server IP:184.73.49.35
+
+Server Configurations for mounting the drive and installing apache2
+
+root@ip-10-0-1-50:~# timedatectl set-timezone Asia/Kolkata
+root@ip-10-0-1-50:~# apt update -y
+root@ip-10-0-1-50:~# apt-get install apache2
+
+yes to continue
+
+root@ip-10-0-1-50:~# service apache2 start
+
+root@ip-10-0-1-50:/var/www/html# fdisk -l
+
+root@ip-10-0-1-50:/var/www/html# mkfs.ext3 /dev/xvdh
+
+root@ip-10-0-1-50:/var/www/html# cd /
+root@ip-10-0-1-50:/# mkdir data
+root@ip-10-0-1-50:/var/www/html# mv index.html /data/
+root@ip-10-0-1-50:/var/www/html# ln -s /data/index.html /var/www/html/
+
+
+Added in Fstab so that after reboot the drive stays mounted.
+
+root@ip-10-0-1-50:/etc# cat /etc/fstab
+LABEL=cloudimg-rootfs   /        ext4   defaults,discard        0 1
+/dev/xvdh               /data    ext3   defaults                0 0
+
+root@ip-10-0-1-50:/etc# mount -a
+root@ip-10-0-1-50:/etc# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            476M     0  476M   0% /dev
+tmpfs            98M  764K   98M   1% /run
+/dev/xvda1      7.7G  1.4G  6.4G  18% /
+tmpfs           490M     0  490M   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           490M     0  490M   0% /sys/fs/cgroup
+/dev/loop0       33M   33M     0 100% /snap/snapd/11588
+/dev/loop1       56M   56M     0 100% /snap/core18/1997
+/dev/loop2       34M   34M     0 100% /snap/amazon-ssm-agent/3552
+tmpfs            98M     0   98M   0% /run/user/1000
+/dev/xvdh       7.9G   19M  7.4G   1% /data
